@@ -1,0 +1,25 @@
+let totalSeconds = 24 * 60 * 60; // 24 jam dalam detik
+
+        function updateCountdown() {
+            if (totalSeconds <= 0) {
+                document.getElementById('countdown').textContent = "00:00:00";
+                document.getElementById('countdown').style.background = "#ff4444";
+                return;
+            }
+            
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            // Format dengan leading zero
+            const formatTime = (time) => time.toString().padStart(2, '0');
+            
+            document.getElementById('countdown').textContent = 
+                `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+            
+            totalSeconds--;
+        }
+        
+        // Update setiap detik
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
