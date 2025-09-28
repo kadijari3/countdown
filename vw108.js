@@ -1,34 +1,25 @@
-function startCountdown(targetTime) {
-            function updateCountdown() {
-                const now = new Date();
-                const target = new Date();
-                
-                // Set target time (misal: 24 jam dari sekarang)
-                target.setHours(target.getHours() + targetTime);
-                
-                const difference = target - now;
-                
-                if (difference <= 0) {
-                    document.getElementById('countdown').textContent = "00:00:00";
-                    return;
-                }
-                
-                // Hitung jam, menit, detik
-                const hours = Math.floor(difference / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-                
-                // Format dengan leading zero
-                const formatTime = (time) => time.toString().padStart(2, '0');
-                
-                document.getElementById('countdown').textContent = 
-                    `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+let totalSeconds = 24 * 60 * 60; // 24 jam dalam detik
+
+        function updateCountdown() {
+            if (totalSeconds <= 0) {
+                document.getElementById('countdown').textContent = "00:00:00";
+                document.getElementById('countdown').style.background = "#ff4444";
+                return;
             }
             
-            // Update setiap detik
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            // Format dengan leading zero
+            const formatTime = (time) => time.toString().padStart(2, '0');
+            
+            document.getElementById('countdown').textContent = 
+                `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+            
+            totalSeconds--;
         }
         
-        // Mulai countdown 24 jam
-        startCountdown(24);
+        // Update setiap detik
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
